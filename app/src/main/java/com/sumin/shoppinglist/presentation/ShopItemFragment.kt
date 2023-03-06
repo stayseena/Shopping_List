@@ -34,6 +34,13 @@ class ShopItemFragment(
     private lateinit var etCount: EditText
     private lateinit var buttonSave: Button
 
+    fun newInstanceAddItem(): ShopItemFragment {
+       return ShopItemFragment(MODE_ADD)
+     }
+
+    fun newInstanceEditItem(shopItemId: Int): ShopItemFragment {
+        return ShopItemFragment(MODE_EDIT, shopItemId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +78,7 @@ class ShopItemFragment(
             tilName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            finish()
+            activity?.onBackPressed()
         }
     }
 

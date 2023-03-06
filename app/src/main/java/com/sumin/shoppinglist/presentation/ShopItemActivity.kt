@@ -60,10 +60,14 @@ class ShopItemActivity : AppCompatActivity() {
     }
 
     private fun launchRightMode() {
-        when (screenMode) {
-            MODE_EDIT -> launchEditMode()
-            MODE_ADD -> launchAddMode()
+        val fragment = when (screenMode) {
+            MODE_EDIT -> ShopItemFragment.newIntentEditItem(shopItemId)
+            MODE_ADD  -> ShopItemFragment.newIntentAddItem()
+            else      -> throw RuntimeException("Unknown screen mode $screenMode")
         }
+    supportFragmentManager.beginTransaction()
+        .add(R.id.shop_item_container, fragment)
+        .commit()
     }
 
     private fun addTextChangeListeners() {
